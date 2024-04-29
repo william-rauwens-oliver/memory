@@ -80,3 +80,10 @@ body {
     color: #333;
   }
   
+  /* Card.css */
+
+.hidden {
+    background-color: #000; /* Changez la couleur d'arrière-plan selon vos besoins */
+    color: transparent; /* Rend le texte invisible */
+  }
+  
