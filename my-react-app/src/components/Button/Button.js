@@ -1,9 +1,8 @@
+// Button.js
 import React from 'react';
 
-function Button(props) {
-    return (
-        <button onClick={props.onClick}>{props.text}</button>
-    );
-}
+const Button = ({ onClick, children }) => {
+  return <button onClick={onClick}>{children}</button>;
+};
 
 export default Button;
