@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import Title from './components/Title/Title';
 import Button from './components/Button/Button';
@@ -9,31 +8,29 @@ const App = () => {
   const [flipped, setFlipped] = useState([]);
   const [solved, setSolved] = useState([]);
   const [disabled, setDisabled] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
 
-  // Fonction pour initialiser les cartes
   useEffect(() => {
     const initCards = () => {
-      // Générer les paires de cartes
       const symbols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
       let cards = [];
       for (let i = 0; i < symbols.length; i++) {
         cards.push({ id: i * 2, symbol: symbols[i] });
         cards.push({ id: i * 2 + 1, symbol: symbols[i] });
       }
-      // Mélanger les cartes
       cards.sort(() => Math.random() - 0.5);
       setCards(cards);
     };
     initCards();
   }, []);
 
-  // Fonction pour retourner une carte
   const flipCard = (id) => {
     setFlipped([...flipped, id]);
     if (flipped.length === 1) {
       if (cards[flipped[0]].symbol === cards[id].symbol) {
         setSolved([...solved, flipped[0], id]);
         resetCards();
+        checkGameWon();
       } else {
         setDisabled(true);
         setTimeout(resetCards, 1000);
@@ -41,18 +38,16 @@ const App = () => {
     }
   };
 
-  // Fonction pour réinitialiser les cartes retournées
   const resetCards = () => {
     setFlipped([]);
     setDisabled(false);
   };
 
-  // Vérifier si toutes les cartes sont retournées
-  useEffect(() => {
+  const checkGameWon = () => {
     if (solved.length === cards.length) {
-      alert('Bravo, vous avez gagné !');
+      setGameWon(true);
     }
-  }, [solved, cards]);
+  };
 
   return (
     <div>
@@ -69,6 +64,11 @@ const App = () => {
           />
         ))}
       </div>
+      {gameWon && (
+        <div style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '20px' }}>
+          Vous avez gagné !
+        </div>
+      )}
       <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
     </div>
   );

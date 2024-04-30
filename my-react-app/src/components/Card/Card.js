@@ -1,15 +1,20 @@
-// Card.js
-
 import React from 'react';
-import './Card.css'; // Assurez-vous d'avoir une feuille de style Card.css pour la classe 'hidden'
+import './Card.css';
 
 const Card = ({ id, symbol, flipped, onClick, disabled }) => {
   return (
     <div
-      className={`card ${flipped ? '' : 'hidden'}`} // Ajoutez la classe 'hidden' si la carte n'est pas retournée
+      className={`card ${flipped ? '' : 'flipped'}`}
       onClick={() => (disabled ? null : onClick(id))}
     >
-      {flipped ? <span className="symbol">{symbol}</span> : null} {/* Afficher la lettre uniquement si la carte est retournée */}
+      <div className="card-inner">
+        <div className="card-front">
+          {/* add countenu */}
+        </div>
+        <div className="card-back">
+          <span className="symbol">{symbol}</span>
+        </div>
+      </div>
     </div>
   );
 };
