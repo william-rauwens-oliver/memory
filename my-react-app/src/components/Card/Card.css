@@ -1,6 +1,5 @@
-/* styles.css */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: #fae19d;
   display: flex;
   justify-content: center;
@@ -55,7 +54,7 @@ body {
 }
 
 .card-back {
-  background-color: #2196f3;
+  background-color: #65e469;
   color: white;
   display: flex;
   justify-content: center;
@@ -89,7 +88,7 @@ body {
 }
 
 button {
-  background-color: #2196f3;
+  background-color: #65e469;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -99,7 +98,7 @@ button {
 }
 
 button:hover {
-  background-color: #0b7dda;
+  background-color: rgba(11, 192, 1, 0.867);
 }
 
 h1 {
