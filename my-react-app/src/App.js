@@ -26,6 +26,7 @@ const App = () => {
 
   const flipCard = (id) => {
     setFlipped([...flipped, id]);
+
     if (flipped.length === 1) {
       if (cards[flipped[0]].symbol === cards[id].symbol) {
         setSolved([...solved, flipped[0], id]);
