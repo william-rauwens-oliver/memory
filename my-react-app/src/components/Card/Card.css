@@ -1,3 +1,4 @@
+/* styles.css */
 body {
   font-family: Arial, sans-serif;
   background-color: #fae19d;
@@ -82,6 +83,11 @@ body {
   pointer-events: none;
 }
 
+.button-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
 button {
   background-color: #2196f3;
   color: white;
@@ -89,7 +95,6 @@ button {
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
-  margin-top: 20px;
   border-radius: 5px;
 }
 

@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import Title from './components/Title/Title';
 import Button from './components/Button/Button';
@@ -65,11 +66,13 @@ const App = () => {
         ))}
       </div>
       {gameWon && (
-        <div style={{ fontSize: '24px', fontWeight: 'bold', marginTop: '20px' }}>
+        <div className="message">
           Vous avez gagné !
         </div>
       )}
-      <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+      <div className="button-container">
+        <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+      </div>
     </div>
   );
 };
