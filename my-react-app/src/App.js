@@ -9,6 +9,7 @@ const App = () => {
   const [solved, setSolved] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [gameWon, setGameWon] = useState(false);
+  const [score, setScore] = useState(0); 
 
   useEffect(() => {
     const initCards = () => {
@@ -30,6 +31,7 @@ const App = () => {
     if (flipped.length === 1) {
       if (cards[flipped[0]].symbol === cards[id].symbol) {
         setSolved([...solved, flipped[0], id]);
+        setScore(score + 1); 
         resetCards();
         checkGameWon();
       } else {
@@ -47,11 +49,20 @@ const App = () => {
   const checkGameWon = () => {
     if (solved.length === cards.length) {
       setGameWon(true);
+      localStorage.setItem('memoryGameScore', score);
     }
   };
 
+  useEffect(() => {
+    const savedScore = localStorage.getItem('memoryGameScore');
+    if (savedScore) {
+      setScore(parseInt(savedScore));
+    }
+  }, []);
+
   return (
-    <div>
+    <div className="container">
+      <div className="score">Score: {score}</div>
       <Title />
       <div className="cards">
         {cards.map((card, index) => (
@@ -67,7 +78,7 @@ const App = () => {
       </div>
       {gameWon && (
         <div className="message">
-          Vous avez gagné !
+          Vous avez gagné avec un score de {score} !
         </div>
       )}
       <div className="button-container">
