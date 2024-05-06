@@ -88,9 +88,9 @@ const App = () => {
       <div className="container">
         <div className="background-selector">
           <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
-          <button onClick={() => changeBackgroundColor("blue")}>Blue</button>
-          <button onClick={() => changeBackgroundColor("green")}>Green</button>
-          <button onClick={() => changeBackgroundColor("red")}>Red</button>
+          <button onClick={() => changeBackgroundColor("blue")}>Bleu</button>
+          <button onClick={() => changeBackgroundColor("green")}>Vert</button>
+          <button onClick={() => changeBackgroundColor("red")}>Rouge</button>
         </div>
         <Title />
         <div className="cards">
