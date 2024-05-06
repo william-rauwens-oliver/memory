@@ -9,7 +9,8 @@ const App = () => {
   const [solved, setSolved] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [gameWon, setGameWon] = useState(false);
-  const [score, setScore] = useState(0); 
+  const [score, setScore] = useState(0);
+  const [backgroundColor, setBackgroundColor] = useState("#fae19d"); // Couleur de fond par défaut
 
   useEffect(() => {
     const initCards = () => {
@@ -31,7 +32,7 @@ const App = () => {
     if (flipped.length === 1) {
       if (cards[flipped[0]].symbol === cards[id].symbol) {
         setSolved([...solved, flipped[0], id]);
-        setScore(score + 1); 
+        setScore(score + 1);
         resetCards();
         checkGameWon();
       } else {
@@ -60,31 +61,44 @@ const App = () => {
     }
   }, []);
 
+  const changeBackgroundColor = (color) => {
+    document.body.style.backgroundColor = color;
+    setBackgroundColor(color);
+  };
+
   return (
-    <div className="container">
+    <>
       <div className="score">Score: {score}</div>
-      <Title />
-      <div className="cards">
-        {cards.map((card, index) => (
-          <Card
-            key={index}
-            id={index}
-            symbol={card.symbol}
-            flipped={flipped.includes(index) || solved.includes(index)}
-            onClick={flipCard}
-            disabled={disabled || solved.includes(index)}
-          />
-        ))}
-      </div>
-      {gameWon && (
-        <div className="message">
-          Vous avez gagné avec un score de {score} !
+      <div className="container">
+        <div className="background-selector">
+          <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
+          <button onClick={() => changeBackgroundColor("blue")}>Blue</button>
+          <button onClick={() => changeBackgroundColor("green")}>Green</button>
+          <button onClick={() => changeBackgroundColor("red")}>Red</button>
         </div>
-      )}
-      <div className="button-container">
-        <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+        <Title />
+        <div className="cards">
+          {cards.map((card, index) => (
+            <Card
+              key={index}
+              id={index}
+              symbol={card.symbol}
+              flipped={flipped.includes(index) || solved.includes(index)}
+              onClick={flipCard}
+              disabled={disabled || solved.includes(index)}
+            />
+          ))}
+        </div>
+        {gameWon && (
+          <div className="message">
+            Vous avez gagné avec un score de {score} !
+          </div>
+        )}
+        <div className="button-container">
+          <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

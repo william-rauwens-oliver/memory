@@ -49,6 +49,14 @@ body {
   backface-visibility: hidden;
 }
 
+.background-selector button {
+  margin-right: 8px;
+}
+
+.score {
+  margin-left: 900px;
+}
+
 .card-front {
   background-color: #4caf50;
 }
