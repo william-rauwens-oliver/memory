@@ -38,7 +38,10 @@ const App = () => {
 
   const flipCard = (id) => {
     setClickCount(clickCount + 1);
-    setFlipped([...flipped, id]);
+
+    if (flipped.length === 0 || flipped.length === 1) {
+      setFlipped([...flipped, id]);
+    }
 
     if (flipped.length === 1) {
       if (cards[flipped[0]].symbol === cards[id].symbol) {
@@ -98,7 +101,7 @@ const App = () => {
               symbol={card.symbol}
               flipped={flipped.includes(index) || solved.includes(index)}
               onClick={flipCard}
-              disabled={disabled || solved.includes(index)}
+              disabled={disabled || solved.includes(index) || flipped.includes(index)}
             />
           ))}
         </div>
