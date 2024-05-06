@@ -10,7 +10,8 @@ const App = () => {
   const [disabled, setDisabled] = useState(false);
   const [gameWon, setGameWon] = useState(false);
   const [score, setScore] = useState(0);
-  const [clickCount, setClickCount] = useState(0); // Nouvel état pour le compteur de clics
+  const [clickCount, setClickCount] = useState(0);
+  const [timer, setTimer] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState("#fae19d");
 
   useEffect(() => {
@@ -27,8 +28,16 @@ const App = () => {
     initCards();
   }, []);
 
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setTimer(prevTimer => prevTimer + 1);
+    }, 1000);
+
+    return () => clearInterval(timerInterval);
+  }, []);
+
   const flipCard = (id) => {
-    setClickCount(clickCount + 1); // Incrémente le compteur de clics
+    setClickCount(clickCount + 1);
     setFlipped([...flipped, id]);
 
     if (flipped.length === 1) {
@@ -71,7 +80,8 @@ const App = () => {
   return (
     <>
       <div className="score">Score: {score}</div>
-      <div className="click-count">Clics: {clickCount}</div> {/* Affichage du compteur de clics */}
+      <div className="click-count">Clics: {clickCount}</div>
+      <div className="timer">Temps écoulé: {timer} secondes</div> {/* Affichage du timer */}
       <div className="container">
         <div className="background-selector">
           <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
