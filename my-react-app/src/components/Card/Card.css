@@ -129,3 +129,15 @@ h1 {
   top: 10px;
   right: 10px;
 }
+
+.click-count {
+  position: absolute;
+  top: 30px;
+  right: 10px;
+}
+
+.timer {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+}
