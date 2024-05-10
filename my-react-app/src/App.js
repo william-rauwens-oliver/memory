@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Title from './components/Title/Title';
 import Button from './components/Button/Button';
 import Card from './components/Card/Card';
@@ -13,6 +13,19 @@ const App = () => {
   const [clickCount, setClickCount] = useState(0);
   const [timer, setTimer] = useState(0);
   const [backgroundColor, setBackgroundColor] = useState("#fae19d");
+  const [gameStarted, setGameStarted] = useState(false);
+  const timerIntervalRef = useRef(null); // Utilisation de useRef pour stocker l'ID de l'intervalle du timer
+
+  useEffect(() => {
+    if (gameStarted) {
+      timerIntervalRef.current = setInterval(() => { // Utilisation de timerIntervalRef.current pour accéder à l'ID de l'intervalle du timer
+        setTimer(prevTimer => prevTimer + 1);
+      }, 1000);
+    } else {
+      clearInterval(timerIntervalRef.current);
+    }
+    return () => clearInterval(timerIntervalRef.current);
+  }, [gameStarted]);
 
   useEffect(() => {
     const initCards = () => {
@@ -26,14 +39,6 @@ const App = () => {
       setCards(cards);
     };
     initCards();
-  }, []);
-
-  useEffect(() => {
-    const timerInterval = setInterval(() => {
-      setTimer(prevTimer => prevTimer + 1);
-    }, 1000);
-
-    return () => clearInterval(timerInterval);
   }, []);
 
   const flipCard = (id) => {
@@ -80,40 +85,53 @@ const App = () => {
     setBackgroundColor(color);
   };
 
+  const startGame = () => {
+    setGameStarted(true);
+  };
+
   return (
     <>
-      <div className="score">Score: {score}</div>
-      <div className="click-count">Clics: {clickCount}</div>
-      <div className="timer">Temps écoulé: {timer} secondes</div> {/* Affichage du timer */}
-      <div className="container">
-        <div className="background-selector">
-          <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
-          <button onClick={() => changeBackgroundColor("blue")}>Bleu</button>
-          <button onClick={() => changeBackgroundColor("green")}>Vert</button>
-          <button onClick={() => changeBackgroundColor("red")}>Rouge</button>
+      {!gameStarted && (
+        <div className="start-button">
+          <Button onClick={startGame}>Play</Button>
         </div>
-        <Title />
-        <div className="cards">
-          {cards.map((card, index) => (
-            <Card
-              key={index}
-              id={index}
-              symbol={card.symbol}
-              flipped={flipped.includes(index) || solved.includes(index)}
-              onClick={flipCard}
-              disabled={disabled || solved.includes(index) || flipped.includes(index)}
-            />
-          ))}
-        </div>
-        {gameWon && (
-          <div className="message">
-            Vous avez gagné avec un score de {score} !
+      )}
+      {gameStarted && (
+        <div>
+          <div className="score">Score: {score}</div>
+          <div className="click-count">Clics: {clickCount}</div>
+          <div className="timer">Temps écoulé: {timer} secondes</div>
+          <div className="container">
+            <div className="background-selector">
+              <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
+              <button onClick={() => changeBackgroundColor("blue")}>Bleu</button>
+              <button onClick={() => changeBackgroundColor("green")}>Vert</button>
+              <button onClick={() => changeBackgroundColor("red")}>Rouge</button>
+            </div>
+            <Title />
+            <div className="cards">
+              {cards.map((card, index) => (
+                <Card
+                  key={index}
+                  id={index}
+                  symbol={card.symbol}
+                  flipped={flipped.includes(index) || solved.includes(index)}
+                  onClick={flipCard}
+                  disabled={disabled || solved.includes(index) || flipped.includes(index)}
+                />
+              ))}
+            </div>
+            {gameWon && (
+              <div className="message">
+                Vous avez gagné avec un score de {score} !
+              </div>
+            )}
+            <div className="button-container">
+              <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+            </div>
           </div>
-        )}
-        <div className="button-container">
-          <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
         </div>
-      </div>
+      )}
     </>
   );
 };
