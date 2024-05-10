@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     if (gameStarted) {
-      timerIntervalRef.current = setInterval(() => { // Utilisation de timerIntervalRef.current pour accéder à l'ID de l'intervalle du timer
+      timerIntervalRef.current = setInterval(() => {
         setTimer(prevTimer => prevTimer + 1);
       }, 1000);
     } else {
@@ -41,6 +41,10 @@ const App = () => {
     initCards();
   }, []);
 
+  useEffect(() => {
+    checkGameWon();
+  }, [flipped]);
+
   const flipCard = (id) => {
     setClickCount(clickCount + 1);
 
@@ -53,7 +57,6 @@ const App = () => {
         setSolved([...solved, flipped[0], id]);
         setScore(score + 1);
         resetCards();
-        checkGameWon();
       } else {
         setDisabled(true);
         setTimeout(resetCards, 1000);
@@ -69,6 +72,7 @@ const App = () => {
   const checkGameWon = () => {
     if (solved.length === cards.length) {
       setGameWon(true);
+      clearInterval(timerIntervalRef.current);
       localStorage.setItem('memoryGameScore', score);
     }
   };
@@ -99,14 +103,14 @@ const App = () => {
       {gameStarted && (
         <div>
           <div className="score">Score: {score}</div>
-          <div className="click-count">Clics: {clickCount}</div>
-          <div className="timer">Temps écoulé: {timer} secondes</div>
+          <div className="click-count">Clicks: {clickCount}</div>
+          <div className="timer">Elapsed Time: {timer} seconds</div>
           <div className="container">
             <div className="background-selector">
               <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
-              <button onClick={() => changeBackgroundColor("blue")}>Bleu</button>
-              <button onClick={() => changeBackgroundColor("green")}>Vert</button>
-              <button onClick={() => changeBackgroundColor("red")}>Rouge</button>
+              <button onClick={() => changeBackgroundColor("blue")}>Blue</button>
+              <button onClick={() => changeBackgroundColor("green")}>Green</button>
+              <button onClick={() => changeBackgroundColor("red")}>Red</button>
             </div>
             <Title />
             <div className="cards">
@@ -123,11 +127,11 @@ const App = () => {
             </div>
             {gameWon && (
               <div className="message">
-                Vous avez gagné avec un score de {score} !
+                You won with a score of {score}!
               </div>
             )}
             <div className="button-container">
-              <Button onClick={() => window.location.reload()}>Nouvelle partie</Button>
+              <Button onClick={() => window.location.reload()}>New Game</Button>
             </div>
           </div>
         </div>
