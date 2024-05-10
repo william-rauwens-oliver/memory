@@ -104,7 +104,7 @@ const App = () => {
         <div>
           <div className="score">Score : {score}</div>
           <div className="click-count">Cliques : {clickCount}</div>
-          <div className="timer">Chrono : {timer} seconds</div>
+          <div className="timer">Chrono : {timer} secondes</div>
           <div className="container">
             <div className="background-selector">
               <button onClick={() => changeBackgroundColor("#fae19d")}>Défaut</button>
@@ -127,11 +127,11 @@ const App = () => {
             </div>
             {gameWon && (
               <div className="message">
-                Vous-avez gagné avec {score} de score !
+                Vous-avez gagné avec {score} de scores !
               </div>
             )}
             <div className="button-container">
-              <Button onClick={() => window.location.reload()}>New Game</Button>
+              <Button onClick={() => window.location.reload()}>Nouvelle Partie</Button>
             </div>
           </div>
         </div>
