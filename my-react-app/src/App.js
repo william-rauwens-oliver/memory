@@ -102,15 +102,15 @@ const App = () => {
       )}
       {gameStarted && (
         <div>
-          <div className="score">Score: {score}</div>
-          <div className="click-count">Clicks: {clickCount}</div>
-          <div className="timer">Elapsed Time: {timer} seconds</div>
+          <div className="score">Score : {score}</div>
+          <div className="click-count">Cliques : {clickCount}</div>
+          <div className="timer">Chrono : {timer} seconds</div>
           <div className="container">
             <div className="background-selector">
-              <button onClick={() => changeBackgroundColor("#fae19d")}>Default</button>
-              <button onClick={() => changeBackgroundColor("blue")}>Blue</button>
-              <button onClick={() => changeBackgroundColor("green")}>Green</button>
-              <button onClick={() => changeBackgroundColor("red")}>Red</button>
+              <button onClick={() => changeBackgroundColor("#fae19d")}>Défaut</button>
+              <button onClick={() => changeBackgroundColor("blue")}>Bleu</button>
+              <button onClick={() => changeBackgroundColor("green")}>Vert</button>
+              <button onClick={() => changeBackgroundColor("red")}>Rouge</button>
             </div>
             <Title />
             <div className="cards">
