@@ -43,7 +43,7 @@ const App = () => {
 
   useEffect(() => {
     checkGameWon();
-  }, [flipped]);
+  }, [score]);
 
   const flipCard = (id) => {
     setClickCount(clickCount + 1);
@@ -70,7 +70,7 @@ const App = () => {
   };
 
   const checkGameWon = () => {
-    if (solved.length === cards.length) {
+    if (score === 8) {
       setGameWon(true);
       clearInterval(timerIntervalRef.current);
       localStorage.setItem('memoryGameScore', score);
