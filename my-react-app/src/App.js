@@ -127,7 +127,7 @@ const App = () => {
             </div>
             {gameWon && (
               <div className="message">
-                You won with a score of {score}!
+                Vous-avez gagné avec {score} de score !
               </div>
             )}
             <div className="button-container">
